@@ -29,11 +29,24 @@ client.ping({
             console.log("---> error checking exists: ", err);
           } else {
             console.log("response : ",  resp);
-            var stringResponse = resp.toString();
-            console.log("----> response to exists : ", stringResponse);
-            if(stringResponse == 'true') {
+            // var stringResponse = resp.toString();
+            // console.log("----> response to exists : ", stringResponse);
+            if(resp === true) {
               console.log("This index exists. Response: ", resp);
-            } else if(stringResponse == 'false'){
+
+               client.index({
+                   index: 'blog',
+                   id: '1',
+                   type: 'posts',
+                   body: {
+                       "PostName": "Integrating Elasticsearch Into Your Node.js Application",
+                       "PostType": "Tutorial",
+                       "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
+                   }
+               }, function(err, resp, status) {
+                   console.log(resp);
+               });
+            } else if(resp == false){
               console.log("This index does not yet exist. Response: ", resp);
                client.indices.create({
                    index: 'blog'
@@ -42,6 +55,19 @@ client.ping({
                        console.log("error creating new index: ", err);
                    } else {
                        console.log("creating new index 'blog':  ", resp);
+
+                        client.index({
+                            index: 'blog',
+                            id: '1',
+                            type: 'posts',
+                            body: {
+                                "PostName": "Integrating Elasticsearch Into Your Node.js Application",
+                                "PostType": "Tutorial",
+                                "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
+                            }
+                        }, function(err, resp, status) {
+                            console.log(resp);
+                        });
                    }
                });
             } else {
@@ -55,19 +81,19 @@ client.ping({
 );
 
 //
-//
-//  client.index({
-//      index: 'blog',
-//      id: '1',
-//      type: 'posts',
-//      body: {
-//          "PostName": "Integrating Elasticsearch Into Your Node.js Application",
-//          "PostType": "Tutorial",
-//          "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
-//      }
-//  }, function(err, resp, status) {
-//      console.log(resp);
-//  });
+ //
+ // client.index({
+ //     index: 'blog',
+ //     id: '1',
+ //     type: 'posts',
+ //     body: {
+ //         "PostName": "Integrating Elasticsearch Into Your Node.js Application",
+ //         "PostType": "Tutorial",
+ //         "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
+ //     }
+ // }, function(err, resp, status) {
+ //     console.log(resp);
+ // });
 //
 //
 //  client.search({
