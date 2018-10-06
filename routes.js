@@ -37,14 +37,6 @@ router.post('/contact', [
   res.render('contact', {
     data: req.body,   //{message, email}
     errors: errors.mapped()
-    // errors: {
-    //   message: {
-    //     msg: 'A message is required'
-    //   },
-    //   email: {
-    //     msg: 'That email doesn`t look correct'
-    //   }
-    // }
   })
 
   const data = matchedData(req)
