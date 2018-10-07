@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
-router.get('/contact', [
+router.get('/partials/contact', [
   check('message')
     .isLength({ min: 1 })
     .withMessage('Message is required'),
@@ -16,13 +16,13 @@ router.get('/contact', [
     .withMessage('That email doesn`t look correct')
   ], (req, res) => {
     const errors = validationResult(req)
-    res.render('contact', {
+    res.render('partials/contact', {
       data: req.body,
       errors: errors.mapped()
     })
 })
 
-router.post('/contact', [
+router.post('/partials/contact', [
   check('message')
     .isLength({ min: 1 })
     .withMessage('Message is required')
@@ -34,7 +34,7 @@ router.post('/contact', [
     .normalizeEmail()
 ],(req, res) => {
   const errors = validationResult(req)
-  res.render('contact', {
+  res.render('partials/contact', {
     data: req.body,   //{message, email}
     errors: errors.mapped()
   })
