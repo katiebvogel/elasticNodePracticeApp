@@ -7,6 +7,14 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
+router.get('/partials/about', (req, res) => {
+  res.render('partials/about')
+})
+
+router.post('/partials/about', (req, res) => {
+  res.render('partials/about')
+})
+
 router.get('/partials/contact', [
   check('message')
     .isLength({ min: 1 })
