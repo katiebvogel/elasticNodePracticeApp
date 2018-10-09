@@ -112,10 +112,16 @@ label {
 
 .navbar-nav li {
         float: left;
+        background-color: #dddddd;
     }
 
 .navbar-nav a {
       display: block;
       padding: 8px;
-      background-color: #dddddd;
+      text-decoration: none;
+      color: black;
   }
+.navbar-nav a:hover:not(.active) {
+  background-color: #111;
+  color: white;
+}
