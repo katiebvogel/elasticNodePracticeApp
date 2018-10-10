@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator/check')
 const { matchedData } = require('express-validator/filter')
+const elasticFunction = require('./elastic')
+
 
 router.get('/', (req, res) => {
   res.render('index')
@@ -49,9 +51,16 @@ router.post('/partials/contact', [
     data: req.body,   //{message, email}
     errors: errors.mapped()
   })
-
   const data = matchedData(req)
   console.log('Sanitized: ', data);
+  // initiate the elasticSearch function and pass in
+  // client data (Sanitized)
+  elasticFunction(data);
 })
 
-module.exports = router
+
+
+
+
+
+module.exports = router;
