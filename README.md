@@ -5,6 +5,10 @@ $ cd elasticsearch  (into elasticsearch directory  (may be in Downloads))
 $ ./bin/elasticsearch
  Control + C to quit
 
+ To view elasticsearch local instance:
+ localhost:9200
+
+
 Helpful review tutorial for node.js app
 https://www.sitepoint.com/single-page-app-without-framework/
 

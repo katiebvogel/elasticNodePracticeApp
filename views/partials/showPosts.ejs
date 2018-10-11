@@ -1,0 +1,45 @@
+<!-- views/contact.ejs -->
+<div>
+  <% include ./navbar %>
+</div>
+
+
+<div class="form-header">
+  <% if (Object.keys(errors).length ===0) { %>
+  <h2>Enter your email</h2>
+  <% } else { %>
+  <h2 class="errors-handling">Nothing matched. Try again?</h2>
+  <ul class="errors-list">
+    <% Object.values(errors).forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+</div>
+
+<form method="post" action="/partials/showPosts" novalidate>
+  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
+    <label for="email">Email</label>
+    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
+    <% if (errors.email) { %>
+      <div class="error"><%= errors.email.msg %></div>
+    <% } %>
+  </div>
+  <div class="form-actions">
+    <button class="btn" type="submit">Send</button>
+  </div>
+</form>
+
+
+<form method="get" action="/partials/showPosts" novalidate>
+  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
+    <label for="email">Email</label>
+    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
+    <% if (errors.email) { %>
+      <div class="error"><%= errors.email.msg %></div>
+    <% } %>
+  </div>
+  <div class="form-actions">
+    <button class="btn" type="submit">Send</button>
+  </div>
+</form>
