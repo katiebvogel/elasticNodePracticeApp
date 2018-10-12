@@ -87,16 +87,24 @@ router.post('/partials/showPosts', [
     .normalizeEmail()
 ],(req, res) => {
   const errors = validationResult(req)
-  res.render('partials/showPosts', {
-    data: req.body,   //{message, email}
-    errors: errors.mapped()
-  })
-  const data = matchedData(req)
-  console.log('Sanitized: ', data);
+  const data = req.body
+  // const returnedData = getElasticFunction(data)
+  //
+  // console.log("returned Data: ", returndedData);
+    res.render('partials/showPosts', {
+      data: req.body,   //{message, email}
+      errors: errors.mapped(),
+      // returnedData: returnedData.mapped()
+    })
+  // const data = matchedData(req)
+  // console.log('Sanitized: ', data);
   // initiate the elasticSearch function and pass in
   // client data (Sanitized)
-  getElasticFunction(data);
+    const returnedData = getElasticFunction(data)
+    console.log("returnd data", returnedData);
 })
+
+
 
 
 

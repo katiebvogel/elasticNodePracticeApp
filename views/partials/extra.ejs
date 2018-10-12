@@ -1,0 +1,11 @@
+
+<div class="post-list">
+  <input class="input" id="message" name="returnedData" type="returnedData" value="<%= returnedData %>" />
+  <% if (returnedData) { %>
+    <ul>
+      <% for (var i in returnedData){%>
+         Message: <li><%= returnedData[i] %><li>
+     <%} %>
+    </ul>
+  <% } %>
+</div>

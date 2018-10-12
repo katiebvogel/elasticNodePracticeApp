@@ -31,15 +31,6 @@
 </form>
 
 
-<form method="get" action="/partials/showPosts" novalidate>
-  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
-    <label for="email">Email</label>
-    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
-    <% if (errors.email) { %>
-      <div class="error"><%= errors.email.msg %></div>
-    <% } %>
-  </div>
-  <div class="form-actions">
-    <button class="btn" type="submit">Send</button>
-  </div>
-</form>
+<div>
+  <% include ./extra %>
+</div>
