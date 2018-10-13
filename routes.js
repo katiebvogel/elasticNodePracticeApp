@@ -101,7 +101,8 @@ router.post('/partials/showPosts', [
   // initiate the elasticSearch function and pass in
   // client data (Sanitized)
     const returnedData = getElasticFunction(data)
-    console.log("returnd data", returnedData);
+    console.log("returned data", returnedData);
+    return returnedData;
 })
 
 
