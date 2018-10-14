@@ -1,13 +1,31 @@
 const http = require('http');
 const elasticsearch = require('elasticsearch');
 const express = require('express');
+const router = express.Router()
 const bodyParser = require('body-parser');
-const app = express();
-const port = process.env.PORT || 3000;
-const path = require('path');
-const layout = require('express-layout');
+// const app = express();
+// const port = process.env.PORT || 3000;
+// const path = require('path');
+// const layout = require('express-layout');
 const routes = require('./routes');
 const validator = require('express-validator');
+
+
+// function renderPosts(messageArray) {
+//   console.log("renderPosts is being called: ", messageArray);
+//   for (var i = 0; i < messageArray.length; i++) {
+//     messageArray[i]
+//   }
+//   router.get('/partials/extra',
+//   (req, res) => {
+//     console.log("here is the request in renderPosts: ", req);
+//     res.render('partials/showPosts', {
+//       message: req.body.mapped()
+//     })
+//   }
+//   )
+// }
+
 
 
 // elastic search basic functioning in the background
@@ -60,6 +78,7 @@ client.ping({
                      messageArray.push(message);
                    }
                    console.log("message ARray: ", messageArray);
+                   // renderPosts(messageArray);
                    return messageArray;
                });
             } else if(resp == false){
@@ -72,7 +91,7 @@ client.ping({
         });
       }
     }
-);
+  );
 };
 
 
