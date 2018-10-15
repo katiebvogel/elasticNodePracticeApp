@@ -15,3 +15,5 @@ https://www.sitepoint.com/single-page-app-without-framework/
 
 Helpful review tutorial with .ejs templating
 https://www.sitepoint.com/forms-file-uploads-security-node-express/
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment

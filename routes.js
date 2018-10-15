@@ -80,25 +80,13 @@ router.post('/partials/showPosts', [
 ],(req, res) => {
   const errors = validationResult(req)
   const data = req.body
-
-  async function getElasticFunction(data){
-    console.log("here is the email info: ", data);
-    return;
-  }
-  async function render() {
-    await getElasticFunction(data);
-
-    console.log("function completed and here was the data:   ",
-    getElasticFunction(data));
+  getElasticFunction(data);
     res.render('partials/showPosts', {
       data: req.body,   //{message, email}
       errors: errors.mapped(),
       returnedData: getElasticFunction(data)
       },
     )
-  }
-
-  render();
 
 })
 
