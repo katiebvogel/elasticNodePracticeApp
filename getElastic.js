@@ -20,7 +20,7 @@ const validator = require('express-validator');
 //   (req, res) => {
 //     console.log("here is the request in renderPosts: ", req);
 //     res.render('partials/showPosts', {
-//       message: req.body.mapped()
+//       message: messageArray
 //     })
 //   }
 //   )
@@ -74,11 +74,10 @@ client.ping({
                    for (var i = 0; i < hits.length; i++) {
                      let hit = hits[i];
                      let message = hit._source.Message;
-                     // console.log("my Message # ", i, "  -> ", message);
                      messageArray.push(message);
                    }
                    console.log("message ARray: ", messageArray);
-                   // renderPosts(messageArray);
+
                    return messageArray;
                });
             } else if(resp == false){

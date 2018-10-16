@@ -39,11 +39,12 @@ router.post('/partials/contact', [
     .normalizeEmail()
 ],(req, res) => {
   const errors = validationResult(req)
+  const data = matchedData(req)
+
   res.render('partials/contact', {
     data: req.body,   //{message, email}
     errors: errors.mapped()
   })
-  const data = matchedData(req)
   console.log('Sanitized: ', data);
   // initiate the elasticSearch function and pass in
   // client data (Sanitized)
@@ -64,9 +65,12 @@ router.get('/partials/showPosts',
 //   ],
   (req, res) => {
     const errors = validationResult(req)
+    const data = req.body
+    const messageArray = {}
     res.render('partials/showPosts', {
       data: req.body,
-      errors: errors.mapped()
+      errors: errors.mapped(),
+      messageArray: messageArray
     }
   )
 })
@@ -80,11 +84,12 @@ router.post('/partials/showPosts', [
 ],(req, res) => {
   const errors = validationResult(req)
   const data = req.body
-  getElasticFunction(data);
+  const messageArray = {}
+  messageArray.value = getElasticFunction(data)
     res.render('partials/showPosts', {
       data: req.body,   //{message, email}
       errors: errors.mapped(),
-      returnedData: getElasticFunction(data)
+      messageArray: messageArray
       },
     )
 
@@ -92,16 +97,16 @@ router.post('/partials/showPosts', [
 
 
 
-  router.get('/partials/extra',
-    (req, res) => {
-      const errors = validationResult(req)
-      // const message = res.body
-      res.render('partials/extra', {
-        data: req.body,
-        errors: errors.mapped()
-      }
-    )
-  })
+  // router.get('/partials/extra',
+  //   (req, res) => {
+  //     const errors = validationResult(req)
+  //     // const message = res.body
+  //     res.render('partials/extra', {
+  //       data: req.body,
+  //       errors: errors.mapped()
+  //     }
+  //   )
+  // })
 
 
 
