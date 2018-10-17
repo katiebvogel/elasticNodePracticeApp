@@ -73,7 +73,22 @@ router.get('/partials/showPosts',
       messageArray: messageArray
     }
   )
+  // return getElasticFunction(data);
 })
+
+
+
+
+
+
+function messageGetter(data) {
+  return new Promise ((resolve, reject) => {
+    getElasticFunction(data)
+      .then(res => res.json())
+      .then(data => resolve(data))
+      .catch(err => reject(err))
+  })
+}
 
 router.post('/partials/showPosts', [
   check('email')
@@ -86,14 +101,19 @@ router.post('/partials/showPosts', [
   const data = req.body
   const messageArray = {}
   messageArray.value = getElasticFunction(data)
+  Promise.all([messageGetter(data)])
+    .then(
+  // const messageArray = messageArray
+  // messageArray.value = getElasticFunction(data)
     res.render('partials/showPosts', {
       data: req.body,   //{message, email}
       errors: errors.mapped(),
-      messageArray: messageArray
+      messageArray: messageArray.value
       },
-    )
-
+    ))
+    .catch(err => res.send("something is terribly wrong"))
 })
+
 
 
 

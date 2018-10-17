@@ -69,7 +69,11 @@ client.ping({
                      }
                    }
                }, function(err, resp, status) {
+                 if (resp && resp.hits && resp.hits.hits) {
                    var hits = resp.hits.hits;
+                 } else {
+                   var hits = [];
+                 }
                    var messageArray = [];
                    for (var i = 0; i < hits.length; i++) {
                      let hit = hits[i];
