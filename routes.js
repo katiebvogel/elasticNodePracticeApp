@@ -81,13 +81,27 @@ router.get('/partials/showPosts',
 
 
 
-function messageGetter(data) {
-  return new Promise ((resolve, reject) => {
-    getElasticFunction(data)
-      .then(res => res.json())
-      .then(data => resolve(data))
-      .catch(err => reject(err))
-  })
+// function messageGetter(req, data) {
+//   return new Promise ((resolve, reject) => {
+//     getElasticFunction(data)
+//       .then(res => res.json())
+//       .then(data => resolve(data))
+//       .catch(err => reject(err))
+//   })
+// }
+
+function findMessage (data) {
+  const myArray = getElasticFunction(data)
+  console.log("my Array:  ", myArray);
+  return myArray;
+}
+
+function wait(ms)
+{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
 }
 
 router.post('/partials/showPosts', [
@@ -99,34 +113,42 @@ router.post('/partials/showPosts', [
 ],(req, res) => {
   const errors = validationResult(req)
   const data = req.body
-  const messageArray = {}
-  // messageArray.value = getElasticFunction(data)
-  Promise.all([messageGetter(data)])
-    .then(
-  // const messageArray = messageArray
-  // messageArray.value = getElasticFunction(data)
+  const myArray = findMessage(data)
+  // function findMessage (callback) {
+  //   const myArray = getElasticFunction(data)
+  //   callback(myArray)
+  // }
+  // const myArray = getElasticFunction(data)
+  if (!myArray || myArray.length < 1) {
+    wait(3000);
+    res.render('partials/extra', {
+      message: getElasticFunction(data)
+    })
+  } else {
+    console.log("no getElasticFunction");
+  // const messageArray = {}
     res.render('partials/showPosts', {
       data: req.body,   //{message, email}
       errors: errors.mapped()
       // messageArray: messageArray.value
       },
-    ))
-    .catch(err => res.send("something is terribly wrong"))
+    )
+  }
 })
 
 
 
 
-  // router.get('/partials/extra',
-  //   (req, res) => {
-  //     const errors = validationResult(req)
-  //     // const message = res.body
-  //     res.render('partials/extra', {
-  //       data: req.body,
-  //       errors: errors.mapped()
-  //     }
-  //   )
-  // })
+  router.get('/partials/extra',
+    (req, res) => {
+      // const errors = validationResult(req)
+      const message = res.body
+      res.render('partials/extra', {
+        message: message,
+      }
+    )
+  })
+
 
 
 

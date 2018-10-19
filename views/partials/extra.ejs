@@ -1,20 +1,16 @@
 
 
-<form method="get" action="/partials/extra" novalidate>
+
   <div class="form-field">
     <label for="message">message</label>
-    <input class="input" id="message" name="message" type="message" value="<%= data %>" />
     <div class="post-list">
-      <% if (message) { %>
         <ul>
           <% for (var i in message){%>
              Message: <li><%= message[i] %><li>
          <%} %>
         </ul>
-      <% } %>
     </div>
   </div>
   <div class="form-actions">
     <button class="btn" type="submit">Send</button>
   </div>
-</form>

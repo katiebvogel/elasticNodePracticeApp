@@ -35,11 +35,12 @@ var client = new elasticsearch.Client({
 });
 
 
-var getElasticFunction = function(data) {
+var getElasticFunction = function(data, response) {
   console.log("initiating GET elastic function in other module",
 data);
 
 var email = data.email;
+var messageArray = [];
 
 client.ping({
      requestTimeout: 30000,
@@ -55,7 +56,7 @@ client.ping({
           if(err) {
             console.log("---> error checking exists: ", err);
           } else {
-            console.log("response : ",  resp);
+            console.log("This index exists : ",  resp);
             if(resp === true) {
               console.log("This index exists. Response: ", resp);
                client.search({
@@ -72,17 +73,16 @@ client.ping({
                  if (resp && resp.hits && resp.hits.hits) {
                    var hits = resp.hits.hits;
                  } else {
-                   var hits = [];
+                   var hits = ["no messages"];
                  }
-                   var messageArray = [];
+                   // var messageArray = [];
                    for (var i = 0; i < hits.length; i++) {
                      let hit = hits[i];
                      let message = hit._source.Message;
                      messageArray.push(message);
                    }
-                   console.log("message ARray: ", messageArray);
-
-                   return messageArray;
+                   console.log("Returning message Array: ", messageArray);
+                   // return messageArray;
                });
             } else if(resp == false){
               console.log("This index does not yet exist. Response: ", resp);
@@ -95,6 +95,7 @@ client.ping({
       }
     }
   );
+  return messageArray;
 };
 
 
