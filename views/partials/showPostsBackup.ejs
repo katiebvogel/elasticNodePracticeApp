@@ -28,4 +28,18 @@
   <div class="form-actions">
   <button class="btn" type="submit">Send</button>
   </div>
+  <div>
+    <% if (Object.keys(messageArray).length === 0) { %>
+      <ul>
+        <li></li>
+      </ul>
+    <% } else {%>
+      <h2 class="message-handling">Messages: </h2>
+      <ul class="message-list">
+        <% Object.values(messageArray).forEach(message => { %>
+          <li><%= message %></li>
+        <% }) %>
+      </ul>
+      <% } %>
+  </div>
 </form>

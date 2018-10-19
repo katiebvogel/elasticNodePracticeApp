@@ -100,15 +100,15 @@ router.post('/partials/showPosts', [
   const errors = validationResult(req)
   const data = req.body
   const messageArray = {}
-  messageArray.value = getElasticFunction(data)
+  // messageArray.value = getElasticFunction(data)
   Promise.all([messageGetter(data)])
     .then(
   // const messageArray = messageArray
   // messageArray.value = getElasticFunction(data)
     res.render('partials/showPosts', {
       data: req.body,   //{message, email}
-      errors: errors.mapped(),
-      messageArray: messageArray.value
+      errors: errors.mapped()
+      // messageArray: messageArray.value
       },
     ))
     .catch(err => res.send("something is terribly wrong"))
