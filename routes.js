@@ -91,9 +91,11 @@ router.get('/partials/showPosts',
 // }
 
 function findMessage (data) {
-  const myArray = getElasticFunction(data)
-  console.log("my Array:  ", myArray);
-  return myArray;
+  // const myArray = getElasticFunction(data)
+  // console.log("my Array:  ", myArray);
+  // return myArray;
+  return getElasticFunction(data)
+
 }
 
 function wait(ms)
@@ -114,6 +116,7 @@ router.post('/partials/showPosts', [
   const errors = validationResult(req)
   const data = req.body
   const myArray = findMessage(data)
+  console.log("my array here: ", myArray);
   // function findMessage (callback) {
   //   const myArray = getElasticFunction(data)
   //   callback(myArray)
@@ -121,8 +124,9 @@ router.post('/partials/showPosts', [
   // const myArray = getElasticFunction(data)
   if (!myArray || myArray.length < 1) {
     wait(3000);
+    console.log("my Array: ", myArray);
     res.render('partials/extra', {
-      message: getElasticFunction(data)
+      message: findMessage(data)
     })
   } else {
     console.log("no getElasticFunction");

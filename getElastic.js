@@ -40,7 +40,7 @@ var getElasticFunction = function(data, response) {
 data);
 
 var email = data.email;
-var messageArray = [];
+// var messageArray = [];
 
 client.ping({
      requestTimeout: 30000,
@@ -75,14 +75,15 @@ client.ping({
                  } else {
                    var hits = ["no messages"];
                  }
-                   // var messageArray = [];
+                   var messageArray = [];
                    for (var i = 0; i < hits.length; i++) {
                      let hit = hits[i];
                      let message = hit._source.Message;
                      messageArray.push(message);
                    }
                    console.log("Returning message Array: ", messageArray);
-                   // return messageArray;
+                   console.log("response?? ", response);
+                   return messageArray;
                });
             } else if(resp == false){
               console.log("This index does not yet exist. Response: ", resp);
@@ -90,12 +91,10 @@ client.ping({
               console.log("if/else error with boolean logic. Response: ", resp);
             }
           }
-
         });
       }
     }
   );
-  return messageArray;
 };
 
 
