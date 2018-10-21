@@ -123,8 +123,9 @@ router.post('/partials/showPosts', [
   // }
   // const myArray = getElasticFunction(data)
   if (!myArray || myArray.length < 1) {
-    wait(3000);
+    wait(2000);
     console.log("my Array: ", myArray);
+    // console.log("message Array somewhere else: ", messageArray);
     res.render('partials/extra', {
       message: findMessage(data)
     })

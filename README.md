@@ -17,3 +17,6 @@ Helpful review tutorial with .ejs templating
 https://www.sitepoint.com/forms-file-uploads-security-node-express/
 
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment
+
+Reviewing scope, variable declaration
+https://javascript.info/closure
