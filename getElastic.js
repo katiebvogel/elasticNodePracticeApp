@@ -3,10 +3,6 @@ const elasticsearch = require('elasticsearch');
 const express = require('express');
 const router = express.Router()
 const bodyParser = require('body-parser');
-// const app = express();
-// const port = process.env.PORT || 3000;
-// const path = require('path');
-// const layout = require('express-layout');
 const routes = require('./routes');
 const validator = require('express-validator');
 
@@ -50,6 +46,7 @@ data);
    }, function(error) {
        if (error) {
            console.error('elasticsearch cluster is down!');
+           return error;
        } else {
            console.log('Everything is ok with elasticsearch');
           client.indices.exists(
@@ -58,6 +55,7 @@ data);
           }, function(err, resp) {
             if(err) {
               console.log("---> error checking exists: ", err);
+              return err;
             } else {
               console.log("This index exists : ",  resp);
               if(resp === true) {
@@ -72,36 +70,54 @@ data);
                          }
                        }
                      }
-                 },
-                 function (err, resp, status) {
-                   let messageArray = [];
-
-                   if (resp && resp.hits && resp.hits.hits) {
-                     var hits = resp.hits.hits;
-                   } else {
-                     var hits = ["no messages"];
-                   }
-                     for (var i = 0; i < hits.length; i++) {
-                       let hit = hits[i];
-                       let message = hit._source.Message;
-                       messageArray.push(message);
-                     }
-                     console.log("Returning message Array: ", messageArray);
-                     return messageArray;
                  }
-               );
+                 // ,
+                 // function (err, resp, status) {
+                 //   let messageArray = [];
+                 //   if(err) {
+                 //     console.log("error with matching email: ", err);
+                 //     return err;
+                 //   }
+                 //   else if (resp && resp.hits && resp.hits.hits) {
+                 //     var hits = resp.hits.hits;
+                 //   } else {
+                 //     var hits = ["no messages"];
+                 //   }
+                 //     for (var i = 0; i < hits.length; i++) {
+                 //       let hit = hits[i];
+                 //       let message = hit._source.Message;
+                 //       messageArray.push(message);
+                 //     }
+                 //     console.log("Returning message Array: ", messageArray);
+                 //     return messageArray;
+                 // }
+               ).then(          function (resp) {
+                                  let messageArray = [];
+                                  if (resp && resp.hits && resp.hits.hits) {
+                                    var hits = resp.hits.hits;
+                                  } else {
+                                    var hits = ["no messages"];
+                                  }
+                                    for (var i = 0; i < hits.length; i++) {
+                                      let hit = hits[i];
+                                      let message = hit._source.Message;
+                                      messageArray.push(message);
+                                    }
+                                    console.log("Returning message Array: ", messageArray);
+                                    response.render('partials/extra', {messageArray: messageArray})
+
+                                })
               } else {
                 console.log("This index does not yet exist. Response: ", resp);
               }
             }
-            console.log("message array in outer function:", messageArray);
-
           });
         }
-        console.log("message array in outer function:", messageArray);
       }
     );
 };
+
+
 
 
 module.exports = getElasticFunction;

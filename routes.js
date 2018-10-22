@@ -90,13 +90,13 @@ router.get('/partials/showPosts',
 //   })
 // }
 
-function findMessage (data) {
-  // const myArray = getElasticFunction(data)
-  // console.log("my Array:  ", myArray);
-  // return myArray;
-  return getElasticFunction(data)
-
-}
+// function findMessage (data, res) {
+//   // const myArray = getElasticFunction(data)
+//   // console.log("my Array:  ", myArray);
+//   // return myArray;
+//   getElasticFunction(data)
+//
+// }
 
 function wait(ms)
 {
@@ -115,30 +115,30 @@ router.post('/partials/showPosts', [
 ],(req, res) => {
   const errors = validationResult(req)
   const data = req.body
-  const myArray = findMessage(data)
-  console.log("my array here: ", myArray);
+  getElasticFunction(data, res);
+  // console.log("my array here: ", myArray);
   // function findMessage (callback) {
   //   const myArray = getElasticFunction(data)
   //   callback(myArray)
   // }
   // const myArray = getElasticFunction(data)
-  if (!myArray || myArray.length < 1) {
-    wait(2000);
-    console.log("my Array: ", myArray);
-    // console.log("message Array somewhere else: ", messageArray);
-    res.render('partials/extra', {
-      message: findMessage(data)
-    })
-  } else {
-    console.log("no getElasticFunction");
-  // const messageArray = {}
-    res.render('partials/showPosts', {
-      data: req.body,   //{message, email}
-      errors: errors.mapped()
-      // messageArray: messageArray.value
-      },
-    )
-  }
+  // if (!myArray || myArray.length < 1) {
+  //   wait(2000);
+  //   console.log("my Array: ", myArray);
+  //   // console.log("message Array somewhere else: ", messageArray);
+  //   res.render('partials/extra', {
+  //     message: findMessage(data)
+  //   })
+  // } else {
+  //   console.log("no getElasticFunction");
+  // // const messageArray = {}
+  //   res.render('partials/showPosts', {
+  //     data: req.body,   //{message, email}
+  //     errors: errors.mapped()
+  //     // messageArray: messageArray.value
+  //     },
+  //   )
+  // }
 })
 
 

@@ -2,11 +2,11 @@
 
 
   <div class="form-field">
-    <label for="message">message</label>
+    <label for="message">messages</label>
     <div class="post-list">
         <ul>
-          <% for (var i in message){%>
-             Message: <li><%= message[i] %><li>
+          <% for (var i in messageArray){%>
+             Message: <li><%= messageArray[i] %><li>
          <%} %>
         </ul>
     </div>
