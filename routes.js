@@ -5,6 +5,15 @@ const { matchedData } = require('express-validator/filter')
 const elasticFunction = require('./elastic')
 const getElasticFunction = require('./getElastic')
 
+// a random wait function used during testing of getElasticFunction
+function wait(ms)
+{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
+}
+
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -46,65 +55,19 @@ router.post('/partials/contact', [
     errors: errors.mapped()
   })
   console.log('Sanitized: ', data);
-  // initiate the elasticSearch function and pass in
-  // client data (Sanitized)
   elasticFunction(data);
 })
 
-
-
-
 router.get('/partials/showPosts',
-// [
-//   check('message')
-//     .isLength({ min: 1 })
-//     .withMessage('Message is required'),
-//   check('email')
-//     .isEmail()
-//     .withMessage('That email doesn`t look correct')
-//   ],
   (req, res) => {
     const errors = validationResult(req)
     const data = req.body
-    const messageArray = {}
     res.render('partials/showPosts', {
       data: req.body,
-      errors: errors.mapped(),
-      messageArray: messageArray
+      errors: errors.mapped()
     }
   )
-  // return getElasticFunction(data);
 })
-
-
-
-
-
-
-// function messageGetter(req, data) {
-//   return new Promise ((resolve, reject) => {
-//     getElasticFunction(data)
-//       .then(res => res.json())
-//       .then(data => resolve(data))
-//       .catch(err => reject(err))
-//   })
-// }
-
-// function findMessage (data, res) {
-//   // const myArray = getElasticFunction(data)
-//   // console.log("my Array:  ", myArray);
-//   // return myArray;
-//   getElasticFunction(data)
-//
-// }
-
-function wait(ms)
-{
-var d = new Date();
-var d2 = null;
-do { d2 = new Date(); }
-while(d2-d < ms);
-}
 
 router.post('/partials/showPosts', [
   check('email')
@@ -114,54 +77,18 @@ router.post('/partials/showPosts', [
     .normalizeEmail()
 ],(req, res) => {
   const errors = validationResult(req)
-  const data = req.body
-  getElasticFunction(data, res);
-  // console.log("my array here: ", myArray);
-  // function findMessage (callback) {
-  //   const myArray = getElasticFunction(data)
-  //   callback(myArray)
-  // }
-  // const myArray = getElasticFunction(data)
-  // if (!myArray || myArray.length < 1) {
-  //   wait(2000);
-  //   console.log("my Array: ", myArray);
-  //   // console.log("message Array somewhere else: ", messageArray);
-  //   res.render('partials/extra', {
-  //     message: findMessage(data)
-  //   })
-  // } else {
-  //   console.log("no getElasticFunction");
-  // // const messageArray = {}
-  //   res.render('partials/showPosts', {
-  //     data: req.body,   //{message, email}
-  //     errors: errors.mapped()
-  //     // messageArray: messageArray.value
-  //     },
-  //   )
-  // }
+  const myEmail = errors.mapped().email
+  var data = req.body
+  console.log("here are the errors: ", errors.mapped());
+  if (myEmail && errors.mapped().email.msg && errors.mapped().email.msg == 'Nothing Matches this Email.') {
+    res.render('partials/showPosts', {
+      data: req.body,
+      errors: errors.mapped()
+    })
+  } else {
+  getElasticFunction(data,res);
+  }
 })
-
-
-
-
-  router.get('/partials/extra',
-    (req, res) => {
-      // const errors = validationResult(req)
-      const message = res.body
-      res.render('partials/extra', {
-        message: message,
-      }
-    )
-  })
-
-
-
-
-
-
-
-
-
 
 
 module.exports = router;

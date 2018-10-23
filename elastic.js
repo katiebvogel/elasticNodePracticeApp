@@ -9,6 +9,7 @@ const layout = require('express-layout');
 const routes = require('./routes');
 const validator = require('express-validator');
 
+const indexName = 'contact_blog_7'
 
 // elastic search basic functioning in the background
 var client = new elasticsearch.Client({
@@ -39,50 +40,63 @@ client.ping({
          console.log('Everything is ok with elasticsearch');
         client.indices.exists(
           {
-          index: 'blog'
+          index: indexName
         }, function(err, resp) {
           if(err) {
             console.log("---> error checking exists: ", err);
           } else {
             console.log("response : ",  resp);
-            // var stringResponse = resp.toString();
-            // console.log("----> response to exists : ", stringResponse);
             if(resp === true) {
               console.log("This index exists. Response: ", resp);
-
                client.index({
-                   index: 'blog',
+                   index: indexName,
                    id: myUUID(),
                    type: 'posts',
                    body: {
-                       "Message": message,
-                       "email": email,
-                       "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
+                       "message": message,
+                       "email": email
                    }
                }, function(err, resp, status) {
                    console.log(resp);
                });
             } else if(resp == false){
               console.log("This index does not yet exist. Response: ", resp);
-               client.indices.create({
-                   index: 'blog'
-               }, function(err, resp, status) {
+              // included mapping on creation of index so email matches
+              // on search will be for exact keyword
+              // before, was matching all *@gmail.com  (unwanted behavior)
+              client.indices.create(
+               {"index": indexName,
+                 "body": {
+                   "mappings": {
+                     "posts": {
+                       "properties": {
+                         "message": {
+                           "type":  "text"
+                         },
+                         "email": {
+                           "type":  "keyword"
+                         }
+                       }
+                     }
+                   }
+                 }
+               },
+              function(err, resp, status) {
                    if (err) {
                        console.log("error creating new index: ", err);
                    } else {
                        console.log("creating new index 'blog':  ", resp);
-
                         client.index({
-                            index: 'blog',
+                            index: indexName,
                             id: myUUID(),
                             type: 'posts',
                             body: {
-                                "Message": message,
-                                "email": email,
-                                "PostBody": "This is the text of our tutorial about using Elasticsearch in your Node.js application.",
+                                "message": message,
+                                "email": email
                             }
                         }, function(err, resp, status) {
-                            console.log(resp);
+                            console.log("response  ", resp);
+                            console.log("status  ", status);
                         });
                    }
                });

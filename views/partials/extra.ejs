@@ -1,13 +1,16 @@
+<div>
+  <% include ./navbar %>
+</div>
 
 
-
-  <div class="form-field">
-    <label for="message">messages</label>
-    <div class="post-list">
-        <ul>
-          <% for (var i in messageArray){%>
-             Message: <li><%= messageArray[i] %><li>
-         <%} %>
-        </ul>
-    </div>
+<div class="form-field">
+  <div class="post-list">
+    <h2>email: <%=email %></h2>
+    <h3>Messages</h3>
+      <div>
+        <% for (var i in messageArray){%>
+           <p><%= messageArray[i] %><p>
+       <%} %>
+     </div>
   </div>
+</div>
