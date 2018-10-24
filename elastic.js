@@ -8,6 +8,8 @@ const path = require('path');
 const layout = require('express-layout');
 const routes = require('./routes');
 const validator = require('express-validator');
+const router = express.Router()
+
 
 const indexName = 'contact_blog_7'
 
@@ -57,7 +59,7 @@ client.ping({
                        "email": email
                    }
                }, function(err, resp, status) {
-                   console.log(resp);
+                 console.log("this is your response, ", resp);
                });
             } else if(resp == false){
               console.log("This index does not yet exist. Response: ", resp);
