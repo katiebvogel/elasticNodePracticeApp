@@ -20,3 +20,6 @@ https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deploy
 
 Reviewing scope, variable declaration
 https://javascript.info/closure
+
+Basic Modal with CSS reference:
+https://sabe.io/tutorials/how-to-create-modal-popup-box
