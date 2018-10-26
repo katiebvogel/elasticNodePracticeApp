@@ -5,6 +5,8 @@ const { matchedData } = require('express-validator/filter')
 const elasticFunction = require('./elastic')
 const getElasticFunction = require('./getElastic')
 
+
+
 // a random wait function used during testing of getElasticFunction
 function wait(ms)
 {
@@ -16,6 +18,10 @@ while(d2-d < ms);
 
 router.get('/', (req, res) => {
   res.render('index')
+})
+
+router.get('/partials/welcome', (req, res) => {
+  res.render('partials/welcome')
 })
 
 router.get('/partials/about', (req, res) => {
