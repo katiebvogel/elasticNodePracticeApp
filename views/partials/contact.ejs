@@ -3,6 +3,7 @@
 <div>
   <% include ./navbar %>
 </div>
+
 <div class="form-header">
   <% if (Object.keys(errors).length ===0) { %>
   <h2>Create a Post</h2>
@@ -32,28 +33,19 @@
     <% } %>
   </div>
   <div class="form-actions">
-      <button class="btn" type="submit"  data-toggle="modal" data-target="#myModal">Send</button>
+      <button class="btn" type="submit">Send</button>
   </div>
 </form>
+<a class="button" href="#popup1">Click here</a>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Info box</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			<p>This is done totally without JavaScript. Just HTML and CSS.</p>
+		</div>
+	</div>
 </div>
