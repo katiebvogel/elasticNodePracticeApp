@@ -129,7 +129,16 @@ label {
 
 
 
-
+#wrapper {
+	width: 300px;
+	margin: 0 auto;
+	background: #fff;
+	padding: 20px;
+	border: 10px solid #aaa;
+	border-radius: 15px;
+	background-clip: padding-box;
+	text-align: center;
+}
 
 
 
@@ -167,7 +176,7 @@ label {
 	transition: opacity 200ms;
   visibility: hidden;
 	opacity: 0;
-	&.light {
+	.overlay_light {
     background: rgba(255,255,255,0.5);
   }
   .cancel {
@@ -190,17 +199,16 @@ label {
 	width: 300px;
 	box-shadow: 0 0 50px rgba(0,0,0,0.5);
 	position: relative;
-}
-  .popup .light & {
+  .light & {
     border-color: #aaa;
     box-shadow: 0 2px 10px rgba(0,0,0,0.25);
   }
-  .popup h2 {
+  h2 {
     margin-top: 0;
     color: #666;
     font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
   }
-  .popup .close {
+  .close {
     position: absolute;
     width: 20px;
     height: 20px;
@@ -212,11 +220,10 @@ label {
     font-weight: bold;
     text-decoration: none;
     color: #666;
-  }
-  .popup .close  &:hover {
+    &:hover {
       opacity: 1;
     }
-
+  }
   .content {
     max-height: 400px;
     overflow: auto;
