@@ -3,7 +3,7 @@
 <div>
   <% include ./navbar %>
 </div>
-
+<div class="container">
 <div class="form-header">
   <% if (Object.keys(errors).length ===0) { %>
   <h2>Create a Post</h2>
@@ -37,10 +37,9 @@
   </div>
 </form>
 
-<h1>Popup/Modal Windows without JavaScript</h1>
+<h2>Popup/Modal Windows without JavaScript</h2>
 <div id="wrapper">
   <p><a class="button" href="#popup1">Click Me</a></p>
-	<p><a class="button" href="#popup2">Click Me Too</a></p>
 </div>
 
 <div id="popup1" class="overlay">
@@ -53,12 +52,4 @@
 	</div>
 </div>
 
-<div id="popup2" class="overlay_light">
-	<a class="cancel" href="#"></a>
-	<div class="popup">
-		<h2>What the what?</h2>
-		<div class="content">
-      <p>Click outside the popup to close.</p>
-		</div>
-	</div>
 </div>

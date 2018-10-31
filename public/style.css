@@ -126,7 +126,9 @@ label {
   color: white;
 }
 
-
+.container {
+  display: block;
+}
 
 
 #wrapper {
